@@ -5,9 +5,12 @@ var cookieParser = require("cookie-parser")
 var logger = require("morgan")
 var indexRouter = require("./routes/index")
 var usersRouter = require("./routes/users")
+var productRouter = require("./routes/product")
 var bodyParser = require("body-parser")
+var db = require("./utils/db")
 
 var app = express()
+app.db = db
 app.use(bodyParser.urlencoded({ extended: false }))
 // 跨域设置
 app.all("*", function(req, res, next) {
@@ -31,6 +34,7 @@ app.use(express.static(path.join(__dirname, "public")))
 
 app.use("/", indexRouter)
 app.use("/users", usersRouter)
+app.use("/product", productRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
